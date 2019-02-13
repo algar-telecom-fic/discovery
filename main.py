@@ -38,7 +38,7 @@ class Cisco_XE(Router):
   manufacturer = 'Cisco-XE'
 
 class Huawei(Router):
-  command_valid = 'show version'
+  command_valid = 'display version'
   key = 'HUAWEI'
   manufacturer = 'Huawei'
 
