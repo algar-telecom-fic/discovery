@@ -64,10 +64,13 @@ def build_ips():
     for suffix in range(256):
       ip = prefix + str(suffix)
       ips.append(ip)
+  return ips
 
 def build(credentials_filepath):
   credentials = build_credentials(credentials_filepath)
   ips = build_ips()
+  print(credentials)
+  print(ips)
   jobs = []
   for ip in ips:
     jobs.append([guess, ip, credentials])
