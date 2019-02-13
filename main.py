@@ -83,15 +83,14 @@ def build(credentials_filepath):
       print(result.os)
 
 def guess(ip, credentials):
-  with lock:
-    print('ip: ' + ip)
-    for subclass in Router.__subclasses__():
-      print(subclass)
-      current = subclass(ip)
-      if current.valid(credentials) == True:
-        print('deu bao')
-      else:
-        print('deu ruim')
+  print('ip: ' + ip)
+  for subclass in Router.__subclasses__():
+    print(subclass)
+    current = subclass(ip)
+    if current.valid(credentials) == True:
+      print('deu bao')
+    else:
+      print('deu ruim')
 
 def local_access_run(command):
   return subprocess.run(
