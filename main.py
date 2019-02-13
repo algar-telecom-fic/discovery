@@ -99,6 +99,7 @@ def build(credentials_filepath):
 def guess(ip, credentials):
   if Router(ip).check_ping() == False:
     return None
+  print(ip + ' deu bão')
   router = None
   for subclass in Router.__subclasses__():
     current = subclass(ip)
