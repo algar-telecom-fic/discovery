@@ -20,6 +20,10 @@ class Router(ABC):
         return True
     return False
 
+  @abstractmethod
+  def valid(self, ip, credentials):
+    pass
+
 class Juniper(Router):
   def __init__(self, ip):
     super().__init__(ip)
@@ -78,7 +82,6 @@ def build(credentials_filepath):
       print(result.os)
 
 def guess(ip, credentials):
-  print('eoqqqqqqqq')
   for subclass in Router.__subclasses__():
     print(subclass)
 
