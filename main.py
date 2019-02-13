@@ -66,7 +66,8 @@ def build_ips():
   ]
   ips = []
   for prefix in ip_prefixes:
-    for suffix in range(256):
+    # for suffix in range(256):
+    for suffix in range(2):
       ip = prefix + str(suffix)
       ips.append(ip)
   return ips
@@ -83,14 +84,13 @@ def build(credentials_filepath):
       print(result.os)
 
 def guess(ip, credentials):
-  print('ip: ' + ip)
+  router = None
   for subclass in Router.__subclasses__():
-    print(subclass)
     current = subclass(ip)
     if current.valid(credentials) == True:
-      print('deu bao')
-    else:
-      print('deu ruim')
+      router = current
+      break
+  return router
 
 def local_access_run(command):
   return subprocess.run(
