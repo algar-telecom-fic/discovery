@@ -27,6 +27,10 @@ class Router(ABC):
       return False
 
   def check_valid(self, credentials):
+    with lock:
+      print('check_valid:')
+      print('\tip: ' + str(self.ip))
+      print('\tmanufacturer: ' + str(self.manufacturer))
     output = remote_access_run(self.ip, self.command_valid, credentials)
     if output == None:
       return False
