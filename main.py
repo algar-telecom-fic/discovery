@@ -28,12 +28,6 @@ class Router(ABC):
 
   def check_valid(self, credentials):
     output = remote_access_run(self.ip, self.command_valid, credentials)
-    with lock:
-      print('check_valid: ')
-      print('\tip: ' + str(self.ip))
-      print('\tmanufacturer: ' + str(self.manufacturer))
-      print('\toutput: ')
-      print(output)
     if output == None:
       return False
     for line in output:
@@ -180,4 +174,5 @@ def remote_access_run(ip, command, credentials):
         if allowed == False:
           return None
 
-build(input())
+# build(input())
+output = remote_access_run('189.39.3.1', 'show version', ['gardusi', 'Eoqsehloirokappa-13'])
