@@ -80,7 +80,8 @@ def build(credentials_filepath):
       print(result.os)
 
 def guess(ip, credentials):
-  pass
+  for subclass in Router.__subclasses__():
+    print(subclass)
 
 def local_access_run(command):
   return subprocess.run(
