@@ -37,7 +37,21 @@ class Cisco_XE(Router):
 class Huawei(Router):
   manufacturer = 'Huawei'
 
-def build(credentials_filepath):
+def build_credentials(credentials_filepath):
+  try:
+    with open(credentials_filepath, 'r') as file:
+      credentials = []
+      v = file.readlines()
+      for i in range(2):
+        credentials.append(v[i].split('\'')[1].strip())
+      return credentials
+  except FileNotFoundError:
+    print(
+      'Failed to read file: \"' + credentials_filepath + '\"',
+      file = sys.stderr
+    )
+
+def build_ips():
   ip_prefixes = [
     '189.39.3.',
     '200.225.196.',
@@ -46,22 +60,23 @@ def build(credentials_filepath):
     '200.225.254.',
   ]
   ips = []
-  jobs = []
   for prefix in ip_prefixes:
     for suffix in range(256):
       ip = prefix + str(suffix)
       ips.append(ip)
-      jobs.append([guess, ip, credentials])
+
+def build(credentials_filepath):
+  credentials = build_credentials(credentials_filepath)
+  ips = build_ips()
+  jobs = []
+  for ip in ips:
+    jobs.append([guess, ip, credentials])
   results = multi_threaded_execution(jobs)
   for result in results:
     if result != None:
       print(result.os)
 
-def guess(ip):
-  pass
-
-def main():
-  build(input())
+def guess(ip, credentials):
   pass
 
 def local_access_run(command):
@@ -126,4 +141,4 @@ def remote_access_run(hostname, command, credentials):
         if allowed == False:
           return None
 
-main()
+build(input())
