@@ -69,8 +69,6 @@ def build_ips():
 def build(credentials_filepath):
   credentials = build_credentials(credentials_filepath)
   ips = build_ips()
-  print(credentials)
-  print(ips)
   jobs = []
   for ip in ips:
     jobs.append([guess, ip, credentials])
@@ -80,6 +78,7 @@ def build(credentials_filepath):
       print(result.os)
 
 def guess(ip, credentials):
+  print('eoqqqqqqqq')
   for subclass in Router.__subclasses__():
     print(subclass)
 
