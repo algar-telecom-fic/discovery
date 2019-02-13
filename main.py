@@ -30,7 +30,7 @@ class Juniper(Router):
   manufacturer = 'Juniper'
 
   def valid(self, credentials):
-    return super().valid(credentials, 'JUNOS')
+    return super.valid(credentials, 'JUNOS')
 
 class Cisco_XR(Router):
   manufacturer = 'Cisco-XR'
