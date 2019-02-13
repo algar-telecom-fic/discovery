@@ -7,12 +7,14 @@ import paramiko
 import subprocess
 import threading
 
+lock = threading.Lock()
+
 class Router(ABC):
   def __init__(self, ip):
     self.ip = ip
 
-  def valid(self, ip, credentials, key):
-    output = remote_access_run(ip, command, credentials)
+  def valid(self, credentials, key):
+    output = remote_access_run(self.ip, command, credentials)
     if output == None:
       return False
     for line in output:
@@ -25,9 +27,7 @@ class Router(ABC):
     pass
 
 class Juniper(Router):
-  def __init__(self, ip):
-    super().__init__(ip)
-    manufacturer = 'Juniper'
+  manufacturer = 'Juniper'
 
   def valid(self, ip, credentials):
     return super().valid(ip, credentials, 'JUNOS')
@@ -82,8 +82,15 @@ def build(credentials_filepath):
       print(result.os)
 
 def guess(ip, credentials):
-  for subclass in Router.__subclasses__():
-    print(subclass)
+  with lock:
+    print('ip:')
+    for subclass in Router.__subclasses__():
+      print(subclass)
+      current = subclass(ip)
+      if current.valid(credentials) == True:
+        print('deu bao')
+      else:
+        print('deu ruim')
 
 def local_access_run(command):
   return subprocess.run(
