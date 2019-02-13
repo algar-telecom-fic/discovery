@@ -174,5 +174,4 @@ def remote_access_run(ip, command, credentials):
         if allowed == False:
           return None
 
-# build(input())
-output = remote_access_run('189.39.3.1', 'show version', ['gardusi', 'Eoqsehloirokappa-13'])
+build(input())
