@@ -136,7 +136,11 @@ def multi_threaded_execution(jobs, workers = 256):
     ans.append(thread.result())
   return ans
 
-def remote_access_run(hostname, command, credentials):
+def remote_access_run(ip, command, credentials):
+  with lock:
+    print(ip)
+    print(command)
+    print(credentials)
   allowed_errors = [
     '[Errno 104] Connection reset by peer',
   ]
@@ -148,7 +152,7 @@ def remote_access_run(hostname, command, credentials):
       try:
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(
-          hostname,
+          ip,
           username = credentials[0],
           password = credentials[1],
           timeout = timeout,
