@@ -13,7 +13,20 @@ class Router(ABC):
   def __init__(self, ip):
     self.ip = ip
 
-  def valid(self, credentials):
+  def check_ping(self):
+    result = local_access_run([
+      '/bin/ping',
+      '-c', '1',
+      '-W', '32',
+      self.ip
+    ])
+    try:
+      result.check_returncode()
+      return True
+    except subprocess.CalledProcessError:
+      return False
+
+  def check_valid(self, credentials):
     output = remote_access_run(self.ip, self.command_valid, credentials)
     if output == None:
       return False
@@ -81,13 +94,15 @@ def build(credentials_filepath):
   results = multi_threaded_execution(jobs)
   for result in results:
     if result != None:
-      print(result.os)
+      print(str(result.ip) + ': ' + str(result.manufacturer))
 
 def guess(ip, credentials):
+  if Router(ip).check_ping() == False:
+    return None
   router = None
   for subclass in Router.__subclasses__():
     current = subclass(ip)
-    if current.valid(credentials) == True:
+    if current.check_valid(credentials) == True:
       router = current
       break
   return router
