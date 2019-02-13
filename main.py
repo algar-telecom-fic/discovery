@@ -23,14 +23,14 @@ class Router(ABC):
     return False
 
   @abstractmethod
-  def valid(self, ip, credentials):
+  def valid(self, credentials):
     pass
 
 class Juniper(Router):
   manufacturer = 'Juniper'
 
-  def valid(self, ip, credentials):
-    return super().valid(ip, credentials, 'JUNOS')
+  def valid(self, credentials):
+    return super().valid(credentials, 'JUNOS')
 
 class Cisco_XR(Router):
   manufacturer = 'Cisco-XR'
@@ -83,7 +83,7 @@ def build(credentials_filepath):
 
 def guess(ip, credentials):
   with lock:
-    print('ip:')
+    print('ip: ' + ip)
     for subclass in Router.__subclasses__():
       print(subclass)
       current = subclass(ip)
