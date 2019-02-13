@@ -13,32 +13,33 @@ class Router(ABC):
   def __init__(self, ip):
     self.ip = ip
 
-  def valid(self, credentials, key):
-    output = remote_access_run(self.ip, command, credentials)
+  def valid(self, credentials):
+    output = remote_access_run(self.ip, self.command_valid, credentials)
     if output == None:
       return False
     for line in output:
-      if line.find(key) != -1:
+      if line.find(self.key) != -1:
         return True
     return False
 
-  @abstractmethod
-  def valid(self, credentials):
-    pass
-
 class Juniper(Router):
+  command_valid = 'show version'
+  key = 'JUNOS'
   manufacturer = 'Juniper'
 
-  def valid(self, credentials):
-    return self.super().valid(credentials, 'JUNOS')
-
 class Cisco_XR(Router):
+  command_valid = 'show version'
+  key = 'IOS XR'
   manufacturer = 'Cisco-XR'
   
 class Cisco_XE(Router):
+  command_valid = 'show version'
+  key = 'IOS Software'
   manufacturer = 'Cisco-XE'
 
 class Huawei(Router):
+  command_valid = 'show version'
+  key = 'HUAWEI'
   manufacturer = 'Huawei'
 
 def build_credentials(credentials_filepath):
