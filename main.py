@@ -135,7 +135,6 @@ def remote_access_run(ip, command, credentials):
   with lock:
     print(ip)
     print(command)
-    print(credentials)
   allowed_errors = [
     '[Errno 104] Connection reset by peer',
   ]
