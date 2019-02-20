@@ -81,7 +81,6 @@ def build_ips():
   ips = []
   for prefix in ip_prefixes:
     for suffix in range(256):
-    # for suffix in range(5):
       ip = prefix + str(suffix)
       ips.append(ip)
   return ips
@@ -101,6 +100,7 @@ def guess(ip, credentials):
   router = None
   if Router(ip).check_ping() == False:
     return router
+  print('ping: ' + ip)
   for subclass in Router.__subclasses__():
     current = subclass(ip)
     if current.check_valid(credentials) == True:
