@@ -162,7 +162,9 @@ def remote_access_run(ip, command, credentials):
       except Exception as exception:
         allowed = False
         s = str(exception)
-        print(exception, file = sys.stderr)
+        with lock:
+          print(ip, file = sys.stderr)
+          print(exception, file = sys.stderr)
         for error in allowed_errors:
           if s.find(error) != -1:
             allowed = True
