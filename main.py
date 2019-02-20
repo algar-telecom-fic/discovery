@@ -3,13 +3,14 @@ from abc import abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from os import sys
 import paramiko
-# import pymongo
+import pymongo
 import subprocess
 import threading
 
 lock = threading.Lock()
 
 class Router(ABC):
+
   def __init__(self, ip):
     self.ip = ip
 
@@ -44,7 +45,7 @@ class Cisco_XR(Router):
   command_valid = 'show version'
   key = 'IOS XR'
   manufacturer = 'Cisco-XR'
-  
+
 class Cisco_XE(Router):
   command_valid = 'show version'
   key = 'IOS Software'
@@ -79,8 +80,7 @@ def build_ips():
   ]
   ips = []
   for prefix in ip_prefixes:
-    # for suffix in range(256):
-    for suffix in range(3):
+    for suffix in range(256):
       ip = prefix + str(suffix)
       ips.append(ip)
   return ips
