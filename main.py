@@ -80,8 +80,8 @@ def build_ips():
   ]
   ips = []
   for prefix in ip_prefixes:
-    # for suffix in range(256):
-    for suffix in range(5):
+    for suffix in range(256):
+    # for suffix in range(5):
       ip = prefix + str(suffix)
       ips.append(ip)
   return ips
@@ -98,10 +98,9 @@ def build(credentials_filepath):
       print(str(result.ip) + ': ' + str(result.manufacturer))
 
 def guess(ip, credentials):
-  if Router(ip).check_ping() == False:
-    return None
-  print(ip + ' deu bão')
   router = None
+  if Router(ip).check_ping() == False:
+    return router
   for subclass in Router.__subclasses__():
     current = subclass(ip)
     if current.check_valid(credentials) == True:
@@ -132,9 +131,6 @@ def multi_threaded_execution(jobs, workers = 256):
   return ans
 
 def remote_access_run(ip, command, credentials):
-  with lock:
-    print(ip)
-    print(command)
   allowed_errors = [
     '[Errno 104] Connection reset by peer',
   ]
