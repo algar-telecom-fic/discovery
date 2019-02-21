@@ -135,7 +135,7 @@ def remote_access_run(ip, command, credentials):
   allowed_errors = [
     '[Errno 104] Connection reset by peer',
   ]
-  timeout = 32
+  timeout = 64
   remaining_attempts = 64
   while remaining_attempts > 0:
     remaining_attempts -= 1
