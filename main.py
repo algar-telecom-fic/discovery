@@ -87,14 +87,15 @@ def build_ips():
 
 def build(credentials_filepath):
   credentials = build_credentials(credentials_filepath)
-  ips = build_ips()
-  jobs = []
-  for ip in ips:
-    jobs.append([guess, ip, credentials])
-  results = multi_threaded_execution(jobs)
-  for result in results:
-    if result != None:
-      print(str(result.ip) + ': ' + str(result.manufacturer))
+  # ips = build_ips()
+  # jobs = []
+  # for ip in ips:
+  #   jobs.append([guess, ip, credentials])
+  # results = multi_threaded_execution(jobs)
+  # for result in results:
+  #   if result != None:
+  #     print(str(result.ip) + ': ' + str(result.manufacturer))
+  print(remote_access_run('200.225.196.107', 'show version', credentials))
 
 def guess(ip, credentials):
   router = None
@@ -134,7 +135,7 @@ def remote_access_run(ip, command, credentials):
   allowed_errors = [
     '[Errno 104] Connection reset by peer',
   ]
-  timeout = 64
+  timeout = 32
   remaining_attempts = 64
   while remaining_attempts > 0:
     remaining_attempts -= 1
