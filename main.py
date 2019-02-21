@@ -149,8 +149,6 @@ def remote_access_run(ip, command, credentials):
           timeout = timeout,
           banner_timeout = timeout,
           auth_timeout = timeout,
-          look_for_keys = False,
-          allow_agent = False,
         )
         stdin, stdout, stderr = ssh.exec_command(
           command,
