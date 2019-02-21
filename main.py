@@ -144,11 +144,10 @@ def remote_access_run(ip, command, credentials):
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(
           ip,
-          username = credentials[0],
-          password = credentials[1],
-          timeout = timeout,
-          banner_timeout = timeout,
+          username, password = credentials,
           auth_timeout = timeout,
+          banner_timeout = timeout,
+          timeout = timeout,
         )
         stdin, stdout, stderr = ssh.exec_command(
           command,
