@@ -2,12 +2,15 @@ from abc import ABC
 from abc import abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from os import sys
+import logging
 import paramiko
 import pymongo
 import subprocess
 import threading
 
 lock = threading.Lock()
+logging.basicConfig()
+logging.getLogger("paramiko").setLevel(logging.WARNING)
 
 class Router(ABC):
 
