@@ -2,7 +2,6 @@ from abc import ABC
 from abc import abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from os import sys
-import logging
 import paramiko
 import pymongo
 import subprocess
@@ -141,9 +140,7 @@ def remote_access_run(ip, command, credentials):
     with paramiko.SSHClient() as ssh:
       try:
         lock = threading.Lock()
-        logging.basicConfig()
-        logging.getLogger("paramiko").setLevel(logging.DEBUG)
-        paramiko.util.log_to_file("log.txt")
+        paramiko.common.logging.basicConfig(level = paramiko.common.DEBUG)
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(
           ip,
