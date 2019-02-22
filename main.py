@@ -150,6 +150,7 @@ def remote_access_run(ip, command, credentials):
           banner_timeout = timeout,
           timeout = timeout,
         )
+        print('eoq')
         stdin, stdout, stderr = ssh.exec_command(
           command,
           timeout = timeout
