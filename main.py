@@ -11,7 +11,7 @@ import threading
 lock = threading.Lock()
 logging.basicConfig()
 logging.getLogger("paramiko").setLevel(logging.WARNING)
-paramiko.util.log_to_file("log", level = "WARN")
+paramiko.util.log_to_file("log", level = "DEBUG")
 
 class Router(ABC):
 
