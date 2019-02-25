@@ -141,11 +141,8 @@ def remote_access_run(ip, command, credentials):
     remaining_attempts -= 1
     with paramiko.SSHClient() as ssh:
       try:
-        print('a')
-        paramiko.common.logging.basicConfig(level = paramiko.common.DEBUG)
-        print('b')
+        # paramiko.common.logging.basicConfig(level = paramiko.common.DEBUG)
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        print('c')
         ssh.connect(
           ip,
           username = credentials[0],
@@ -154,12 +151,10 @@ def remote_access_run(ip, command, credentials):
           banner_timeout = timeout,
           timeout = timeout,
         )
-        print('d')
         stdin, stdout, stderr = ssh.exec_command(
           command,
           timeout = timeout
         )
-        print('e')
         ans = []
         for line in stdout.readlines():
           ans.append(line)
